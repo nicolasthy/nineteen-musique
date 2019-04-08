@@ -6,7 +6,7 @@ class UserInfos extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: []
+      user: null
     };
   }
   componentDidMount() {
@@ -17,12 +17,21 @@ class UserInfos extends Component {
     let user = this.state.user;
     console.log(user);
 
-    return (
-      <div>
-        <span>{user.display_name}</span>
-        <span>{user.email}</span>
-      </div>
-    );
+    if (user) {
+      return (
+        <div>
+          <div>
+            <span>{user.display_name}</span>
+            <span>{user.email}</span>
+          </div>
+          <div>
+            <span>{user.followers.total}</span>
+          </div>
+        </div>
+      );
+    }
+
+    return <div />;
   }
 }
 
