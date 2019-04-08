@@ -3,7 +3,7 @@ import { fetchSpotifyApi } from "../../helpers/spotifyApi";
 
 import PlaylistItem from "./PlaylistItem";
 
-const PLAYLISTS_PER_PAGE = 20;
+const PLAYLISTS_PER_PAGE = 16;
 
 class PlaylistList extends Component {
   constructor(props) {
@@ -20,7 +20,7 @@ class PlaylistList extends Component {
   }
 
   getPlaylists() {
-    let offset = this.state.page * PLAYLISTS_PER_PAGE;
+    let offset = this.state.page > 0 ? this.state.page * PLAYLISTS_PER_PAGE : 0;
     fetchSpotifyApi(
       `/me/playlists?limit=${PLAYLISTS_PER_PAGE}&offset=${offset}`
     ).then(data => {
@@ -44,9 +44,9 @@ class PlaylistList extends Component {
 
   render() {
     return (
-      <div>
+      <div className="playlist">
         <h1>List of playlists</h1>
-        {this.renderPlaylists()}
+        <div className="playlist_list">{this.renderPlaylists()}</div>
         <div>
           <button onClick={this.getPlaylists.bind(this)}>Next page</button>
         </div>

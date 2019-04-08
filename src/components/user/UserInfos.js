@@ -17,7 +17,7 @@ class UserInfos extends Component {
     let user = this.state.user;
     console.log(user);
 
-    if (user) {
+    if (user && !user.error) {
       return (
         <div>
           <div>
