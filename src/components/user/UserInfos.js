@@ -25,7 +25,9 @@ class UserInfos extends Component {
             <span>{user.email}</span>
           </div>
           <div>
-            <span>{user.followers.total}</span>
+            <span>
+              <strong>{user.followers.total}</strong> Followers
+            </span>
           </div>
         </div>
       );
