@@ -18,6 +18,10 @@ class AuthLogin extends Component {
       return result;
     }, {});
 
+    if (this.state.token) {
+      window.location.href = "/browse";
+    }
+
     if (result.access_token) {
       this.setState({ token: result.access_token }, () => {
         localStorage.setItem(
@@ -29,12 +33,19 @@ class AuthLogin extends Component {
           Math.floor(Date.now() / 1000)
         );
 
-        window.location.href = "/";
+        window.location.href = "/browse";
       });
     }
   }
 
   render() {
+    if (this.state.token) {
+      return (
+        <div>
+          <div>Loading...</div>
+        </div>
+      );
+    }
     return (
       <div>
         <a href={spotifyURI}>Login with Spotify</a>

@@ -1,17 +1,98 @@
 ﻿.playlist-item {
-  color: red;
+  margin: 35px 20px;
+  width: 250px;
+  border-radius: 5px;
+
+  &:hover {
+    .playlist-item_infos {
+      opacity: 1;
+    }
+
+    .playlist-item_cover {
+      transform: scale(1.01);
+
+      > div {
+        opacity: 1;
+
+        &::before {
+          opacity: 0.45;
+          transform: scale(1.08);
+        }
+
+        &::after {
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  &_infos {
+    margin: 0 0 0 2px;
+    opacity: 0.7;
+    transition: 0.6s linear;
+
+    > h5 {
+      margin: 15px 0 5px;
+    }
+
+    > span {
+      opacity: 0.4;
+    }
+  }
 
   &_cover {
-    margin: 5px;
-    background: red;
-    border-radius: 5px;
-    width: 200px;
-    height: 200px;
+    position: relative;
+    background: #f4f2ef;
+    border-radius: inherit;
+    width: inherit;
+    height: 250px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.6s ease-in-out;
 
-    img {
-      border-radius: 5px;
+    > div {
+      border-radius: inherit;
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: cover;
+      position: absolute;
+      z-index: 5;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
+      opacity: 0.9;
+      transition: 0.3s ease-in-out;
+
+      &::before {
+        content: "";
+        border-radius: inherit;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-image: inherit;
+        background-size: cover;
+        background-position: center center;
+        transform: scale(1.05);
+        opacity: 0.35;
+        filter: blur(15px);
+        z-index: 0;
+        top: 5px;
+        transition: 0.8s ease-in-out;
+      }
+
+      &::after {
+        content: "";
+        border-radius: inherit;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-image: inherit;
+        background-size: cover;
+        background-position: center center;
+        z-index: 1;
+        opacity: 0.9;
+        transition: 0.3s ease-in-out;
+      }
     }
   }
 }

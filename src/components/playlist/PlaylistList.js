@@ -1,36 +1,64 @@
 import React, { Component } from "react";
-import { fetchSpotifyApi } from "../../helpers/spotifyApi";
 
+import { fetchSpotifyApi } from "../../helpers/spotifyApi";
 import PlaylistItem from "./PlaylistItem";
 
-const PLAYLISTS_PER_PAGE = 16;
+const PLAYLISTS_PER_PAGE = 28;
 
 class PlaylistList extends Component {
   constructor(props) {
     super(props);
+    this.handleScroll = this.handleScroll.bind(this);
+
     this.state = {
-      playlists: null,
+      playlists: [],
       count: 0,
-      page: 0
+      page: 0,
+      loading: false
     };
   }
 
   componentDidMount() {
+    window.addEventListener("scroll", this.handleScroll, false);
     this.getPlaylists();
   }
 
+  componentWillUnmount() {
+    window.removeEventListener("scroll", this.handleScroll, false);
+  }
+
   getPlaylists() {
+    if (
+      this.state.count > 0 &&
+      this.state.playlists.length === this.state.count
+    )
+      return;
+
     let offset = this.state.page > 0 ? this.state.page * PLAYLISTS_PER_PAGE : 0;
+
     fetchSpotifyApi(
       `/me/playlists?limit=${PLAYLISTS_PER_PAGE}&offset=${offset}`
     ).then(data => {
       console.log(data);
+      let playlists = this.state.playlists.concat(data.items);
       this.setState({
-        playlists: data.items,
+        playlists: playlists,
         count: data.total,
-        page: this.state.page + 1
+        page: this.state.page + 1,
+        loading: false
       });
     });
+  }
+
+  handleScroll(event) {
+    if (
+      window.innerHeight + window.scrollY >= document.body.offsetHeight - 200 &&
+      !this.state.loading
+    ) {
+      this.setState({ loading: true }, () => {
+        this.getPlaylists();
+      });
+    }
   }
 
   renderPlaylists() {
@@ -47,9 +75,6 @@ class PlaylistList extends Component {
       <div className="playlist">
         <h1>List of playlists</h1>
         <div className="playlist_list">{this.renderPlaylists()}</div>
-        <div>
-          <button onClick={this.getPlaylists.bind(this)}>Next page</button>
-        </div>
       </div>
     );
   }

@@ -1,1 +1,9 @@
-﻿@import "./playlist/index";
+﻿@import "./helpers/variables";
+
+@import "./playlist/index";
+@import "./track/index";
+
+body {
+  background: #fff;
+  font-family: sans-serif;
+}

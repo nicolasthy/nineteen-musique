@@ -1,0 +1,27 @@
+.track-item {
+  position: relative;
+  display: flex;
+  margin: 4px 0;
+  padding: 10px 0;
+
+  &_index {
+    position: absolute;
+    left: 0;
+  }
+
+  &_name {
+    max-width: 300px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    padding: 0 0 0 30px;
+  }
+
+  &_artist {
+    opacity: 0.6;
+    text-transform: uppercase;
+    font-size: 10px;
+    line-height: 20px;
+    margin: 0 0 0 10px;
+  }
+}

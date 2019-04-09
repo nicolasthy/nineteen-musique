@@ -3,17 +3,17 @@ import { BrowserRouter, Route } from "react-router-dom";
 
 import PrivateRoute from "./helpers/PrivateRoute";
 
-import Header from "./Header";
 import AuthLogin from "./auth/AuthLogin";
-import PlaylistList from "./playlist/PlaylistList";
+import Home from "../pages/Home";
+import Dashboard from "../pages/Dashboard";
 
 const App = () => {
   return (
     <div>
-      <Header />
       <BrowserRouter>
-        <PrivateRoute path="/" exact component={PlaylistList} />
-        <Route path="/login" component={AuthLogin} />
+        <PrivateRoute path="/browse" component={Dashboard} />
+        <Route path="/" exact component={Home} />
+        <Route path="/login" exact component={AuthLogin} />
       </BrowserRouter>
     </div>
   );
